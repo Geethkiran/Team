@@ -25,12 +25,14 @@ public class SellerModel {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "sellerId")
+	@Column(name = "seller_id")
 	private Long sellerId;
 	
 	private String sellerName;
 	
+	private String emailId;
+	
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "bookId")
+	@JoinColumn(name = "book_id")
 	private List<BookModel> books;
 }

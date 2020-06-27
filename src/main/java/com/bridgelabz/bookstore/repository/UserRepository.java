@@ -21,16 +21,16 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
 	@Query(value="Select * from user",nativeQuery = true)
 	List<UserModel> getAllUsers();
 	
-	@Query(value = "select * from user where emailId=?", nativeQuery = true)
+	@Query(value = "select * from user where email_id=?", nativeQuery = true)
 	UserModel findByEmail(String emailId);
 	
-	@Query(value = "select * from user where emailId=?", nativeQuery = true)
+	@Query(value = "select * from user where email_id=?", nativeQuery = true)
 	Optional<UserModel> findByEmailId(String emailId);
 	
-	@Query(value = "select * from user where userId = :userId", nativeQuery = true)
+	@Query(value = "select * from user where user_id = :userId", nativeQuery = true)
 	UserModel findById(long userId);
 	
-	@Query(value = "select * from user where userId = :userId", nativeQuery = true)
+	@Query(value = "select * from user where user_id = :userId", nativeQuery = true)
 	Optional<UserModel> findUserById(long userId);
 
 //	@Modifying
@@ -38,14 +38,14 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
 //	void insertdata(String fullName, String emailId,String mobileNumber, String password ,boolean isVerified, LocalDateTime registeredAt, LocalDateTime updatedAt, Enum roleType);
 
 	@Modifying
-	@Query(value="update user set is_verified = true where userId = :userId", nativeQuery = true)
+	@Query(value="update user set is_verified = true where user_id = :userId", nativeQuery = true)
 	void verify(long userId);
 
 	@Modifying
-	@Query(value="update user set updated_at = now() where userId = :userId", nativeQuery = true)
+	@Query(value="update user set updated_at = now() where user_id = :userId", nativeQuery = true)
 	void updatedAt(long userId);
 	
-	@Query(value = "select role_type from user where userId = ?", nativeQuery = true) 
+	@Query(value = "select role_type from user where user_id = ?", nativeQuery = true) 
 	String checkRole(long userId);
 	
 }

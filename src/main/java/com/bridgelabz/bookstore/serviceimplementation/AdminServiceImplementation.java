@@ -1,59 +1,52 @@
 package com.bridgelabz.bookstore.serviceimplementation;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.bridgelabz.bookstore.exception.UserNotFoundException;
 import com.bridgelabz.bookstore.model.BookModel;
 import com.bridgelabz.bookstore.repository.BookRepository;
 import com.bridgelabz.bookstore.repository.UserRepository;
 import com.bridgelabz.bookstore.service.AdminService;
 import com.bridgelabz.bookstore.utility.JwtGenerator;
 
+@Service
 public class AdminServiceImplementation implements AdminService{
 
-	@Override
-	public List<BookModel> getBooksForVerification(String token) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void bookVerification(Long bookId, Long sellerId) {
-		// TODO Auto-generated method stub
-		
-	}
-/*
 	@Autowired
 	private UserRepository userRepository;
 	
 	@Autowired
 	private BookRepository bookRepository;	
+	
+	
 	@Override
-	public List<BookModel>  getBooksForVerification(String token) {
+	public void bookVerification(Long bookId, Long sellerId,String token) {
 		
 		long id = JwtGenerator.decodeJWT(token);
 		String role = userRepository.checkRole(id);
 		if(role.equals("ADMIN")){
-			List<BookModel> allBooks = bookRepository.findAll();
-			List<BookModel> unverifiedBooks;
-			for(int i=0;i<allBooks.size();i++) {
-				//if (a)
-				
-			}
-								
-		return allBooks;
+			Optional<BookModel> book= bookRepository.findById(bookId);
+			book.get().setVerfied(true);
+			bookRepository.save(book.get());
 		}
-		// TODO Auto-generated method stub
-		return null;
-	
 	}
-	
-	
-	@Override
-	public void bookVerification(Long bookId, Long sellerId) {
-		// TODO Auto-generated method stub
+
 		
+	@Override
+	public List<BookModel>  getBooksForVerification(String token) throws UserNotFoundException {
+		
+		long id = JwtGenerator.decodeJWT(token);
+		String role = userRepository.checkRole(id);
+		if(role.equals("ADMIN")){
+			return bookRepository.getAllUnverfiedBooks();						
+		}
+		else {
+			throw new UserNotFoundException("Not Authorized");
+		}	
 	}
-*/
+
 }

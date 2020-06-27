@@ -8,4 +8,5 @@ import com.bridgelabz.bookstore.model.SellerModel;
 @Repository
 public interface SellerRepository extends JpaRepository<SellerModel,Long> {
 
+	
 }

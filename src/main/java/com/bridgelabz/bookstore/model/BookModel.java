@@ -19,6 +19,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,11 +31,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BookModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "bookId")
+	@Column(name = "book_id")
 	private Long bookId;
 
 	@Column
@@ -69,11 +72,11 @@ public class BookModel {
 	private boolean isVerfied;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "userId")
+	@JoinColumn(name = "user_id")
 	private List<UserModel> users;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "sellerId")
+	@JoinColumn(name = "seller_id")
 	private List<SellerModel> sellers;
 	
 		

@@ -25,17 +25,19 @@ public class AdminModel {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "adminId")
+	@Column(name = "admin_id")
 	private Long adminId;
 	
 	private String adminName;
 	
+	private String emailId;
+	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "sellerId")
+	@JoinColumn(name = "seller_id")
 	private List<SellerModel> sellers;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "userId")
+	@JoinColumn(name = "user_id")
 	private List<UserModel> users;
 	 
 }
